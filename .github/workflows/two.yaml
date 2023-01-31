@@ -1,7 +1,9 @@
 name: Two
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths: 'src/**'
   workflow_dispatch:
 
