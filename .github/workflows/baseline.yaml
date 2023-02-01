@@ -1,0 +1,28 @@
+name: Chromatic Baseline
+
+on:
+  push:
+    branches:
+      - main
+    paths: 'src/**'
+  workflow_dispatch:
+
+jobs:
+  baseline:
+    name: Chromatic Baseline
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm ci
+
+      - uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          onlyChanged: true
